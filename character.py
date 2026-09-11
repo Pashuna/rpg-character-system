@@ -54,6 +54,9 @@ class Warrior(Character):
         actual_damage = max(0, damage - self.armor)
         super().take_damage(actual_damage)
 
+    def heal(self, amount: int) -> None:
+        pass
+
 
 class Mage(Character):
     def __init__(self, name: str, health: int, attack_power: int, mana: int) -> None:
