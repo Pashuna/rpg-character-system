@@ -1,0 +1,18 @@
+from character import Character, Warrior, Mage
+
+warrior = Warrior("warrior", 100, 30, 10)
+goblin = Character("goblin", 100, 30)
+mage = Mage("mage", 100, 30, 40)
+goblin.attack(warrior)
+print(warrior)
+mage.attack(warrior)
+mage.attack(goblin)
+mage.fireball(goblin)
+print(goblin)
+print(mage.mana)
+mage.fireball(goblin)
+mage.fireball(goblin)
+mage.attack(goblin)
+mage.attack(warrior)
+mage.attack(warrior)
+mage.attack(warrior)
