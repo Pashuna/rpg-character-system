@@ -8,6 +8,7 @@ class Character:
         self.attack_power = attack_power
         self.level = 1
         self.experience = 0
+        self.experience_reward = 0
 
     def attack(self, other: "Character", damage: int | None = None) -> bool:
         if not self.is_alive():
@@ -26,9 +27,12 @@ class Character:
               f" {old_health - other.health} damage!")
         if other.health == 0:
             print(f"{other.name} is dead!")
-            self.experience += 80
+            self.experience += other.experience_reward
             self.level_up()
         return True
+
+    def attack_turn(self, other: "Character") -> None:
+        self.attack(other)
 
     def level_up(self) -> None:
         while self.experience >= 100:
@@ -59,3 +63,5 @@ class Character:
         if amount <= 0:
             raise ValueError("Heal amount must be positive")
         self.health = min(self.max_health, self.health + amount)
+
+

@@ -16,3 +16,6 @@ class Mage(Character):
         attack_successful = super().attack(other, special_attack)
         if attack_successful:
             self.mana -= 20
+
+    def attack_turn(self, other: "Character") -> None:
+        self.fireball(other)

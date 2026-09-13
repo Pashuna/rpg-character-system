@@ -1,10 +1,7 @@
-from warrior import Warrior
-from mage import Mage
+from character import Character
+from game import Game
 
+character = Character("Character", 100, 20)
+game = Game(character)
 
-warrior = Warrior('Warrior', 120, 30, 5)
-mage = Mage('Mage', 100, 25, 60)
-while warrior.is_alive() and mage.is_alive():
-    warrior.power_attack(mage)
-    if mage.is_alive():
-        mage.fireball(warrior)
+game.battle()

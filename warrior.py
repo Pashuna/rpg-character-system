@@ -20,3 +20,6 @@ class Warrior(Character):
 
         else:
             super().attack(other)
+
+    def attack_turn(self, other: "Character") -> None:
+        self.power_attack(other)
