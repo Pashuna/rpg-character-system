@@ -9,10 +9,13 @@ class Character:
         self.level = 1
         self.experience = 0
 
-    def attack(self, other: "Character", damage: int | None = None) -> None:
+    def attack(self, other: "Character", damage: int | None = None) -> bool:
+        if not self.is_alive():
+            print(f"{self.name} is dead!")
+            return False
         if not other.is_alive():
             print(f"{other.name} is dead!")
-            return
+            return False
         old_health = other.health
         if damage is None:
             damage = self.attack_power
@@ -22,14 +25,17 @@ class Character:
         print(f"{self.name} attacked {other.name} for"
               f" {old_health - other.health} damage!")
         if other.health == 0:
-            self.experience += 50
+            print(f"{other.name} is dead!")
+            self.experience += 80
             self.level_up()
+        return True
 
     def level_up(self) -> None:
         while self.experience >= 100:
             self.experience -= 100
             self.level += 1
             self.health += 20
+            self.max_health += 20
             self.attack_power += 5
             print(f"{self.name} reached level {self.level}!")
             print(
@@ -50,31 +56,6 @@ class Character:
         if not self.is_alive():
             print(f"{self.name} is dead!")
             return
+        if amount <= 0:
+            raise ValueError("Heal amount must be positive")
         self.health = min(self.max_health, self.health + amount)
-
-
-class Warrior(Character):
-    def __init__(self, name: str, health: int,
-                 attack_power: int, armor: int) -> None:
-        super().__init__(name, health, attack_power)
-        self.armor = armor
-
-    def take_damage(self, damage: int) -> None:
-        actual_damage = max(0, damage - self.armor)
-        super().take_damage(actual_damage)
-
-
-class Mage(Character):
-    def __init__(self, name: str, health: int,
-                 attack_power: int, mana: int) -> None:
-        super().__init__(name, health, attack_power)
-        self.mana = mana
-
-    def fireball(self, other: "Character") -> None:
-        if self.mana < 20:
-            print("Not enough mana!")
-            return
-
-        special_attack = self.attack_power * 2
-        super().attack(other, special_attack)
-        self.mana -= 20
