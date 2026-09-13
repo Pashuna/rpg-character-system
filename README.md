@@ -1,107 +1,129 @@
 # RPG Character System
 
-A small RPG character system written in Python.
-The project demonstrates object-oriented programming, inheritance, polymorphism, and basic character progression.
+A simple object-oriented RPG combat system built with Python.
+
+The project demonstrates core OOP concepts such as inheritance, method overriding, encapsulation, and interaction between different character classes.
 
 ## Features
 
-* Character creation
-* Health and attack power
-* Taking damage
+* Base `Character` class
+* `Warrior` and `Mage` subclasses
+* Health and maximum health
+* Attack system
+* Damage calculation
+* Armor system
+* Warrior power attack with random damage
+* Mage fireball ability with mana consumption
 * Healing
-* Health limit (`max_health`)
-* Experience and leveling
-* Warrior class with armor
-* Mage class with mana and fireball attack
-* Polymorphism through `take_damage()`
+* Experience points
+* Leveling system
+* Character death checks
+* Turn-based combat loop
 * Type annotations
-* Code style checked with Flake8
-
-## Classes
-
-### `Character`
-
-Base class for all characters.
-
-Main attributes:
-
-* `name`
-* `health`
-* `max_health`
-* `attack_power`
-* `level`
-* `experience`
-
-Main methods:
-
-* `attack()`
-* `take_damage()`
-* `heal()`
-* `is_alive()`
-* `level_up()`
-
-### `Warrior`
-
-Inherits from `Character`.
-
-Adds:
-
-* `armor`
-
-Armor reduces incoming damage.
-
-### `Mage`
-
-Inherits from `Character`.
-
-Adds:
-
-* `mana`
-* `fireball()`
-
-Fireball deals double the mage's attack power and costs 20 mana.
-
-## Level System
-
-Characters gain **50 XP** when they defeat an enemy.
-
-Every **100 XP**:
-
-* Level increases by 1
-* Health increases by 20
-* Attack power increases by 5
-
-Extra XP is preserved, so a character can gain multiple levels if enough experience is available.
-
-## Example
-
-```python
-from character import Character, Warrior, Mage
-
-hero = Character("Hero", 100, 20)
-warrior = Warrior("Warrior", 120, 15, 5)
-mage = Mage("Mage", 80, 25, 40)
-
-hero.attack(warrior)
-mage.fireball(warrior)
-
-print(hero)
-print(warrior)
-print(mage)
-```
+* Flake8 code quality checks
 
 ## Project Structure
 
 ```text
 rpg-character-system/
 ├── character.py
+├── warrior.py
+├── mage.py
 ├── main.py
 ├── README.md
-├── .gitignore
-└── .venv/
+└── .gitignore
 ```
 
-`.venv/`, `.idea/`, and `__pycache__/` are excluded from Git.
+## Character Classes
+
+### Character
+
+The base class for all characters.
+
+It provides:
+
+* Health and maximum health
+* Attack power
+* Experience
+* Level
+* Basic attacks
+* Damage handling
+* Healing
+* Leveling up
+* Alive/dead state
+
+### Warrior
+
+The Warrior inherits from `Character` and adds:
+
+* Armor
+* `power_attack()`
+
+The power attack has a 50% chance to deal double damage.
+
+### Mage
+
+The Mage inherits from `Character` and adds:
+
+* Mana
+* `fireball()`
+
+Fireball deals double the Mage's attack power and costs 20 mana.
+
+## Combat Example
+
+A simple combat loop can be run from `main.py`.
+
+```text
+Warrior attacked Mage for 60 damage!
+Mage attacked Warrior for 45 damage!
+Warrior attacked Mage for 40 damage!
+```
+
+The battle continues until one of the characters dies.
+
+## Leveling System
+
+Characters gain experience by defeating enemies.
+
+Every 100 experience points increases the character's level.
+
+When a character levels up:
+
+* Health increases by 20
+* Maximum health increases by 20
+* Attack power increases by 5
+
+Extra experience is preserved after leveling up.
+
+For example:
+
+```text
+160 XP
+↓
+Level up
+↓
+60 XP remaining
+```
+
+## Requirements
+
+* Python 3.10+
+* Flake8
+
+## Running the Project
+
+Clone the repository and run:
+
+```bash
+python main.py
+```
+
+To check the code with Flake8:
+
+```bash
+flake8 character.py warrior.py mage.py main.py
+```
 
 ## Technologies
 
@@ -113,14 +135,6 @@ rpg-character-system/
 
 ## Project Status
 
-The basic character system is implemented.
+The basic RPG combat system is implemented and working.
 
-Possible future improvements:
-
-* Automatic tests with `pytest`
-* More character classes
-* Weapons and items
-* Critical hits
-* Skills and abilities
-* More advanced combat system
-* Separate test directory
+Future improvements may include additional character classes, enemies, abilities, inventory, and a more advanced combat system.
