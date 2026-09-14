@@ -1,7 +1,12 @@
-from character import Character
 from game import Game
+from mage import Mage
 
-character = Character("Character", 100, 20)
-game = Game(character)
 
-game.battle()
+def main() -> None:
+    mage = Mage("Mage", 100, 25, 40)
+    game = Game(mage)
+    game.run()
+
+
+if __name__ == "__main__":
+    main()

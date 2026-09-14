@@ -34,24 +34,33 @@ class Character:
     def attack_turn(self, other: "Character") -> None:
         self.attack(other)
 
-    def level_up(self) -> None:
+    def special_attack(self, other: "Character") -> None:
+        self.attack(other)
+
+    def level_up(self) -> int:
+        levels_gained = 0
         while self.experience >= 100:
             self.experience -= 100
             self.level += 1
             self.health += 20
             self.max_health += 20
             self.attack_power += 5
+            levels_gained += 1
             print(f"{self.name} reached level {self.level}!")
             print(
                 f"--------\n{self.name} health +20 -> {self.health}\n"
                 f"attack_power +5 -> {self.attack_power}\n--------"
             )
+        return levels_gained
 
     def take_damage(self, damage: int) -> None:
         self.health = max(0, self.health - damage)
 
     def __str__(self) -> str:
-        return f"{self.name} | HP: {self.health} | Attack: {self.attack_power}"
+        return (
+            f"{self.name} | HP: {self.health}/{self.max_health} | "
+            f"Attack: {self.attack_power}"
+        )
 
     def is_alive(self) -> bool:
         return self.health > 0
@@ -63,5 +72,3 @@ class Character:
         if amount <= 0:
             raise ValueError("Heal amount must be positive")
         self.health = min(self.max_health, self.health + amount)
-
-

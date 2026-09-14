@@ -2,23 +2,27 @@
 
 A simple object-oriented RPG combat system built with Python.
 
-The project demonstrates core OOP concepts such as inheritance, method overriding, encapsulation, and interaction between different character classes.
+The project demonstrates core OOP concepts such as inheritance, method overriding, encapsulation, polymorphism, and interaction between different character classes.
 
 ## Features
 
 * Base `Character` class
 * `Warrior` and `Mage` subclasses
+* `Enemy` base class
+* `Goblin` and `Dragon` enemies
 * Health and maximum health
 * Attack system
 * Damage calculation
-* Armor system
-* Warrior power attack with random damage
+* Warrior armor system
+* Warrior power attack with a 50% chance to deal double damage
 * Mage fireball ability with mana consumption
-* Healing
+* Healing system
 * Experience points
 * Leveling system
 * Character death checks
-* Turn-based combat loop
+* Random enemy selection
+* Turn-based combat
+* Multiple battles
 * Type annotations
 * Flake8 code quality checks
 
@@ -29,6 +33,10 @@ rpg-character-system/
 ├── character.py
 ├── warrior.py
 ├── mage.py
+├── enemy.py
+├── goblin.py
+├── dragon.py
+├── game.py
 ├── main.py
 ├── README.md
 └── .gitignore
@@ -54,33 +62,63 @@ It provides:
 
 ### Warrior
 
-The Warrior inherits from `Character` and adds:
+The `Warrior` inherits from `Character` and adds:
 
 * Armor
 * `power_attack()`
 
 The power attack has a 50% chance to deal double damage.
 
+When the Warrior levels up, armor also increases by 2.
+
 ### Mage
 
-The Mage inherits from `Character` and adds:
+The `Mage` inherits from `Character` and adds:
 
 * Mana
 * `fireball()`
 
 Fireball deals double the Mage's attack power and costs 20 mana.
 
-## Combat Example
+When the Mage levels up, mana increases by 20.
 
-A simple combat loop can be run from `main.py`.
+## Enemies
+
+### Goblin
+
+A basic enemy with:
+
+* 40 HP
+* 10 attack power
+* 50 experience reward
+
+### Dragon
+
+A stronger enemy with:
+
+* 60 HP
+* 15 attack power
+* 90 experience reward
+
+At the beginning of each battle, a random enemy is selected.
+
+## Combat System
+
+The game uses a turn-based combat system.
+
+During the player's turn, they can:
 
 ```text
-Warrior attacked Mage for 60 damage!
-Mage attacked Warrior for 45 damage!
-Warrior attacked Mage for 40 damage!
+1 - Attack
+2 - Heal
+3 - Special attack
 ```
 
-The battle continues until one of the characters dies.
+After a successful player action, the enemy attacks if it is still alive.
+
+The battle continues until either the player or the enemy dies.
+
+The player can start another random battle after winning.
 
 ## Leveling System
 
@@ -106,6 +144,8 @@ Level up
 60 XP remaining
 ```
 
+Multiple levels can be gained if enough experience is earned.
+
 ## Requirements
 
 * Python 3.10+
@@ -113,16 +153,18 @@ Level up
 
 ## Running the Project
 
-Clone the repository and run:
+Run the game with:
 
 ```bash
 python main.py
 ```
 
-To check the code with Flake8:
+## Code Quality
+
+To check the entire project with Flake8:
 
 ```bash
-flake8 character.py warrior.py mage.py main.py
+flake8 --exclude=.venv .
 ```
 
 ## Technologies
@@ -137,4 +179,13 @@ flake8 character.py warrior.py mage.py main.py
 
 The basic RPG combat system is implemented and working.
 
-Future improvements may include additional character classes, enemies, abilities, inventory, and a more advanced combat system.
+Possible future improvements:
+
+* Additional character classes
+* Additional enemies
+* More special abilities
+* Inventory system
+* Items and equipment
+* More advanced combat mechanics
+* Critical hits and status effects
+* Save/load system

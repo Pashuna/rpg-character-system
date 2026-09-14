@@ -4,8 +4,13 @@ from character import Character
 
 
 class Warrior(Character):
-    def __init__(self, name: str, health: int,
-                 attack_power: int, armor: int) -> None:
+    def __init__(
+        self,
+        name: str,
+        health: int,
+        attack_power: int,
+        armor: int
+    ) -> None:
         super().__init__(name, health, attack_power)
         self.armor = armor
 
@@ -15,11 +20,23 @@ class Warrior(Character):
 
     def power_attack(self, other: "Character") -> None:
         if random.randint(0, 1) == 1:
-            special_attack = self.attack_power * 2
-            super().attack(other, special_attack)
-
+            damage = self.attack_power * 2
+            super().attack(other, damage)
         else:
             super().attack(other)
 
+    def level_up(self) -> None:
+        levels_gained = super().level_up()
+        self.armor += 2 * levels_gained
+
     def attack_turn(self, other: "Character") -> None:
+        self.attack(other)
+
+    def special_attack(self, other: "Character") -> None:
         self.power_attack(other)
+
+    def __str__(self) -> str:
+        return (
+            f"{self.name} | HP: {self.health}/{self.max_health} | "
+            f"Attack: {self.attack_power} | Armor: {self.armor}"
+        )
